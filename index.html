@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dolar hoje 1.0</title>
 </head>
+<link rel="stylesheet" href="./module/glide.core.css">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Ubuntu:wght@400;500&display=swap');
 
@@ -27,8 +28,73 @@
 </style>
 
 <body>
-    <div class="box-conversao" style="width: 90%; max-width: 650px; margin-top: 50px;">
-        <div class="box-logo-moeda" style=" width: 100%; display: flex; justify-content: center; align-items: center;">
+    <div class="box-conversao" style="width: 90%; max-width: 650px;">
+        <!-- aqui vai o carrosel kk -->
+        <div id="navMoedas" class="glider" style="display: flex; overflow-x: auto; overflow-wrap:normal;">
+
+            <!-- <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div>
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div>
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div>
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div>
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div>
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/rublo.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
+                </div>
+            </div> -->
+
+
+
+
+
+        </div>
+
+
+        <div class="box-logo-moeda" style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
             <img src="./img/dolar.png" style="height: 130px; border-radius: 50%; filter: grayscale(1);">
         </div>
         <div class="box-valores"
@@ -36,16 +102,19 @@
             <div class="box-input-moeda"
                 style="width: 100%; justify-content: center; align-items: center; display: flex; position: relative;">
                 <label for=""
-                    style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;"> USD
+                    style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;">
+                    USD
                 </label>
-                <input id="moeda1" type="text" placeholder="insira um valor" value="1"
+                <input id="moeda1" type="text" placeholder="insira um valor" value="1.00"
                     style="height: 38px; width: 100%; margin: 10px; border: 1px solid #333; 
                 padding: 10px; font-size: 24px; outline: 0px none; border-radius: 3px; color: #333; text-align: end; font-weight: bold;">
             </div>
+            <!-- aqui abaixo sempre vai ser o real -->
             <div class="box-input-real"
                 style="width: 100%; justify-content: center; align-items: center; display: flex; position: relative;">
                 <label for=""
-                    style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;"> BRL
+                    style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;">
+                    BRL
                 </label>
                 <input id="moeda2" type="text" placeholder="" value="1"
                     style="height: 38px; width: 100%; margin: 10px; border: 1px solid #333; 
@@ -53,12 +122,11 @@
 
             </div>
         </div>
-        <div class="box-resumo"
-            style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
+        <div class="box-resumo" style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
                      position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
             <label for=""
                 style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
-                &#128196; Resumo:
+                &#128196; Sobre:
             </label>
             <br>
             <h1 style="font-size: 18px;">O Dólar Americano (USD)</h1>
@@ -87,29 +155,76 @@
 
         </div>
 
-            <!--  -->
-    <center>
-        <div class="box-me" 
-        style=" width: 180px; margin-top: 90px; filter: grayscale(1); border: 1px solid #999; border-bottom: none;
-         border-radius: 5px 5px 0 0; padding-top: 5px; padding-bottom: 5px;">
-            <a target="_blank" href="https://github.com/brcaraujo"
-                style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
-                <img src="./img/icone-github-grise.png" alt=""
-                    style="height: 20px; border-radius: 50%; margin-top: 2px;">
-                <p style="font-size: 13px; text-decoration: none; margin-left: 5px; color:#999; font-weight: bold;"> Bruno o Dev &#128126;</p>
-            </a>
+
+        <div class="box-link-outras-moedas" style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
+        position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
+            <label for=""
+                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
+                &#128182; Outras Moedas:
+            </label>
+
+            <div class="box-render-moedas" style="display: flex;">
+
+                <div class="moeda"
+                    style=" border: 1px solid #efecec; margin: 5px; cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
+                    <div class="boximg">
+                        <img src="./icon-moedas/rublo.png" alt="" style="height: 30px;">
+                    </div>
+                    <div class="box-sigla" style="margin-left: 5px;">
+                        <p>RUBLO</p>
+                    </div>
+                </div>
+
+                <div class="moeda"
+                    style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
+                    <div class="boximg">
+                        <img src="./icon-moedas/euro.png" alt="" style="height: 30px;">
+                    </div>
+                    <div class="box-sigla" style="margin-left: 5px;">
+                        <p>EURO</p>
+                    </div>
+                </div>
+
+
+                <div class="moeda"
+                    style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
+                    <div class="boximg">
+                        <img src="./icon-moedas/btc.png" alt="" style="height: 30px;">
+                    </div>
+                    <div class="box-sigla" style="margin-left: 5px;">
+                        <p>BITCOIN</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </center>
+
+        <!--  -->
+        <center>
+            <div class="box-me" style=" width: 180px; margin-top: 90px; filter: grayscale(1); border: 1px solid #999; border-bottom: none;
+         border-radius: 5px 5px 0 0; padding-top: 5px; padding-bottom: 5px;">
+                <a target="_blank" href="https://github.com/brcaraujo"
+                    style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
+                    <img src="./img/icone-github-grise.png" alt=""
+                        style="height: 20px; border-radius: 50%; margin-top: 2px;">
+                    <p style="font-size: 13px; text-decoration: none; margin-left: 5px; color:#999; font-weight: bold;">
+                        Bruno o Dev &#128126;</p>
+                </a>
+            </div>
+        </center>
 
 
- 
+
     </div>
 </body>
 
 
 <script>
+    let navMoedas = document.getElementById('navMoedas');
+
     let inputMoeda1 = document.getElementById('moeda1');
     let inputMoeda2 = document.getElementById('moeda2');
+
 
     inputMoeda1.addEventListener('input', () => {
         if (inputMoeda1.value == "") {
@@ -139,6 +254,53 @@
     }
 
     atualizaValores(1);
+
+
+
+
+    function atualizaValoresNav() {
+        let ajax = new XMLHttpRequest();
+        ajax.open('GET', 'http://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL,ETH-BRL,LTC-BRL');
+        ajax.onreadystatechange = () => {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                let resposta = JSON.parse(ajax.response);
+                console.log(resposta);
+
+
+                Object.keys(resposta).forEach((key) => {
+                    console.log(resposta[key].code);
+
+                    navMoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code);
+                });
+            }
+        }
+        ajax.send();
+    }
+
+    atualizaValoresNav();
+
+
+
+    function templateMoeda(img, valor, sigla) {
+        return (`
+            <div class="moeda"
+                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
+                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                    <img src="./icon-moedas/${img}.png" alt="" style="height: 20px;">
+                </div>
+                <div class="box-sigla" style="margin-left: 5px;">
+                    <p style="font-size: 10px; font-weight: bold;">${sigla} - R$ ${valor}</p>
+                </div>
+            </div>
+        
+        `);
+    }
+
+
+
+
+
+
 
 
 
