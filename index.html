@@ -260,7 +260,7 @@
 
     function atualizaValoresNav() {
         let ajax = new XMLHttpRequest();
-        ajax.open('GET', 'http://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL,ETH-BRL,LTC-BRL');
+        ajax.open('GET', 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL,ETH-BRL,LTC-BRL');
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
