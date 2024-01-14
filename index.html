@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dolar hoje 1.0</title>
+    <title>Dolar Hoje</title>
+    <link rel="shortcut icon" href="./img/dolar.png" type="image/x-icon">
 </head>
 <link rel="stylesheet" href="./module/glide.core.css">
 <style>
@@ -95,13 +96,13 @@
 
 
         <div class="box-logo-moeda" style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-            <img src="./img/dolar.png" style="height: 130px; border-radius: 50%; filter: grayscale(1);">
+            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%; filter: grayscale(1);">
         </div>
         <div class="box-valores"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 25px;">
             <div class="box-input-moeda"
                 style="width: 100%; justify-content: center; align-items: center; display: flex; position: relative;">
-                <label for=""
+                <label for="" id="labelDaMoeda"
                     style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;">
                     USD
                 </label>
@@ -126,7 +127,7 @@
                      position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
             <label for=""
                 style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
-                &#128196; Sobre:
+                Sobre:
             </label>
             <br>
             <h1 style="font-size: 18px;">O Dólar Americano (USD)</h1>
@@ -160,10 +161,10 @@
         position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
             <label for=""
                 style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
-                &#128182; Outras Moedas:
+                Outras Moedas:
             </label>
 
-            <div class="box-render-moedas" style="display: flex;">
+            <div class="box-render-moedas" style="display: flex; flex-wrap: wrap;">
 
                 <div class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px; cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
@@ -220,6 +221,15 @@
 
 
 <script>
+    //aqui pego o hash para usar com minhas chamadas ajax..
+    let urlHash = window.location.hash.replace('#', '');
+    if(urlHash ==""){
+        urlHash = 'USD';
+        window.location.href = './#USD';
+    }
+
+    console.log(urlHash);
+
     let navMoedas = document.getElementById('navMoedas');
 
     let inputMoeda1 = document.getElementById('moeda1');
@@ -232,28 +242,24 @@
             inputMoeda1.value = "";
             return;
         }
-        atualizaValores(inputMoeda1.value);
+        atualizaValores(inputMoeda1.value, urlHash);
     })
 
 
-    function atualizaValores(reais) {
+    function atualizaValores(reais, moedaEX) {
         let ajax = new XMLHttpRequest();
-        ajax.open('GET', 'https://economia.awesomeapi.com.br/last/USD-BRL');
+        ajax.open('GET', `https://economia.awesomeapi.com.br/last/${moedaEX}-BRL`);
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
-
-                let totalMoedaExtrangeira = parseFloat(reais) * resposta.USDBRL.ask;
-
+                let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX+'BRL'].ask;
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
-
-                console.log(totalMoedaExtrangeira);
             }
         }
         ajax.send();
     }
 
-    atualizaValores(1);
+    atualizaValores(1, urlHash);
 
 
 
@@ -265,8 +271,6 @@
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
                 console.log(resposta);
-
-
                 Object.keys(resposta).forEach((key) => {
                     console.log(resposta[key].code);
 
@@ -295,6 +299,17 @@
         
         `);
     }
+
+
+    
+    function loadPageHashMoeda(sigla){
+        let fotoDaMoeda = document.getElementById('fotoDaMoeda');
+        let labelDaMoeda = document.getElementById('labelDaMoeda');
+        fotoDaMoeda.setAttribute('src', './icon-moedas/'+sigla+'.png');
+        labelDaMoeda.innerText=sigla;
+    }
+    window.addEventListener('load', loadPageHashMoeda(urlHash));
+
 
 
 
