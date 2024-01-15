@@ -11,6 +11,9 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik+Pixels&family=Ubuntu:wght@400;500&display=swap');
 
+    ::-webkit-scrollbar{
+        width: 1px;
+    }
     /* font-family: 'Ubuntu', sans-serif; */
     * {
         padding: 0px;
@@ -20,6 +23,7 @@
 
     body {
         width: 100vw;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -29,7 +33,7 @@
 </style>
 
 <body>
-    <div class="box-conversao" style="width: 90%; max-width: 650px;">
+    <div class="box-conversao" style="width: 90%; max-width: 650px; height: 100vh;">
         <!-- aqui vai o carrosel kk -->
         <div id="navMoedas" class="glider" style="display: flex; overflow-x: auto; overflow-wrap:normal;">
 
@@ -87,16 +91,12 @@
                     <p style="font-size: 10px; font-weight: bold;">RUB R$ 6,15</p>
                 </div>
             </div> -->
-
-
-
-
-
         </div>
 
-
-        <div class="box-logo-moeda" style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%; filter: grayscale(1);">
+        <div class="box-logo-moeda"
+            style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+            <img id="fotoDaMoeda" src="./img/dolar.png"
+                style="height: 130px; border-radius: 50%;">
         </div>
         <div class="box-valores"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 25px;">
@@ -123,10 +123,22 @@
 
             </div>
         </div>
+        <div class="box-recebacontacao" style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 70px;
+                     position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
+            <label for=""
+                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 16px;">
+                Receba Cotações :
+            </label>
+
+
+        </div>
+
+
+
         <div class="box-resumo" style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
                      position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
             <label for=""
-                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
+                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 16px;">
                 Sobre:
             </label>
             <br>
@@ -160,7 +172,7 @@
         <div class="box-link-outras-moedas" style="border: 1px solid #999; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
         position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
             <label for=""
-                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 20px;">
+                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold; font-size: 16px;">
                 Outras Moedas:
             </label>
 
@@ -201,18 +213,18 @@
         </div>
 
         <!--  -->
-        <center>
-            <div class="box-me" style=" width: 180px; margin-top: 90px; filter: grayscale(1); border: 1px solid #999; border-bottom: none;
-         border-radius: 5px 5px 0 0; padding-top: 5px; padding-bottom: 5px;">
-                <a target="_blank" href="https://github.com/brcaraujo"
-                    style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
-                    <img src="./img/icone-github-grise.png" alt=""
-                        style="height: 20px; border-radius: 50%; margin-top: 2px;">
-                    <p style="font-size: 13px; text-decoration: none; margin-left: 5px; color:#999; font-weight: bold;">
-                        Bruno o Dev &#128126;</p>
-                </a>
-            </div>
-        </center>
+        <!-- 
+        <div class="box-me" style=" width: 100%; margin-top: 90px; filter: grayscale(1); border-bottom: none;
+         border-radius: 5px 5px 0 0; padding-top: 5px; padding-bottom: 5px; position: absolute; bottom: 10px;">
+            <a target="_blank" href="https://github.com/brcaraujo"
+                style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
+                <img src="./img/icone-github-grise.png" alt=""
+                    style="height: 20px; border-radius: 50%; margin-top: 2px;">
+                <p style="font-size: 13px; text-decoration: none; margin-left: 5px; color:#999;">
+                    Bruno o Dev &#128126;</p>
+            </a>
+        </div> -->
+
 
 
 
@@ -223,7 +235,7 @@
 <script>
     //aqui pego o hash para usar com minhas chamadas ajax..
     let urlHash = window.location.hash.replace('#', '');
-    if(urlHash ==""){
+    if (urlHash == "") {
         urlHash = 'USD';
         window.location.href = './#USD';
     }
@@ -252,7 +264,7 @@
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
-                let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX+'BRL'].ask;
+                let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX + 'BRL'].ask;
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
             }
         }
@@ -287,26 +299,26 @@
 
     function templateMoeda(img, valor, sigla) {
         return (`
-            <div class="moeda"
-                style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 100px; border-radius: 3px; padding: 3px;">
-                <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
-                    <img src="./icon-moedas/${img}.png" alt="" style="height: 35px;">
+                <div onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
+                    style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 120px; border-radius: 3px; padding: 3px;">
+                    <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                        <img src="./icon-moedas/${img}.png" alt="" style="height: 35px;">
+                    </div>
+                    <div class="box-sigla" style="margin-left: 5px;">
+                        <p style="font-size: 12px; font-weight: bold;">${sigla}</p>
+                        <p style="font-size: 12px;"> R$ ${valor}</p>
+                    </div>
                 </div>
-                <div class="box-sigla" style="margin-left: 5px;">
-                    <p style="font-size: 12px; font-weight: bold;">${sigla} - R$ ${valor}</p>
-                </div>
-            </div>
-        
         `);
     }
 
 
-    
-    function loadPageHashMoeda(sigla){
+
+    function loadPageHashMoeda(sigla) {
         let fotoDaMoeda = document.getElementById('fotoDaMoeda');
         let labelDaMoeda = document.getElementById('labelDaMoeda');
-        fotoDaMoeda.setAttribute('src', './icon-moedas/'+sigla+'.png');
-        labelDaMoeda.innerText=sigla;
+        fotoDaMoeda.setAttribute('src', './icon-moedas/' + sigla + '.png');
+        labelDaMoeda.innerText = sigla;
     }
     window.addEventListener('load', loadPageHashMoeda(urlHash));
 
