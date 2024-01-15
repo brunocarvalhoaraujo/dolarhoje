@@ -31,10 +31,22 @@
         overflow-x: hidden;
 
     }
+
+    @keyframes slider {
+        0%{
+            transform: translateX(20%);
+        }
+        50%{
+            transform: translate(-100%);
+        }
+        100%{
+            transform: translate(0%);
+        }
+    }
 </style>
 
 <body>
-    <div class="box-conversao" style="width: 90%; max-width: 650px; height: 100vh;">
+    <div class="box-conversao" style="width: 95%; max-width: 650px; height: 100vh;">
         <!-- aqui vai o carrosel kk -->
         <div id="navMoedas" class="glider" style="display: flex; overflow-x: auto; overflow-wrap:normal;">
 
@@ -315,8 +327,13 @@
                 Object.keys(resposta).forEach((key) => {
                     console.log(resposta[key].code);
 
-                    navMoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
+                    navMoedas.innerHTML += templateMoedaSlider(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
                     renderoutrasmoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid,resposta[key].pctChange, resposta[key].name);
+                });
+
+                Object.keys(resposta).forEach((key) => {
+                    console.log(resposta[key].code);
+                    navMoedas.innerHTML += templateMoedaSlider(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
                 });
             }
         }
@@ -326,6 +343,37 @@
 
 
 
+    function templateMoedaSlider(img, valor, sigla, updown, pctChange, name) {
+        return (`
+                <div title="${name}" onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
+                    style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 120px; border-radius: 3px; padding: 3px; position: relative; animation: 4s slider linear;">
+                    <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown >0 ? "#3A9811": "red"}"> ${pctChange} %</p>
+                    <div class="var-bird" style="position: absolute; bottom: 5px; right: 4px">
+                        <img src="./img/${updown >0 ? "up.png": "down.png"}" alt="" style="height: 6px; animation: updown 1s infinite;">
+                        <style>
+                            @keyframes updown {
+                                0%{
+                                    transform: scale(1.2);
+                                }
+                                100%{
+                                    transform: scale(1.1);
+                                }
+                            }
+                        </style>
+                    </div>
+
+                    <div class="boximg" style="justify-content: center; align-items: center; display: flex;">
+                        <img src="./icon-moedas/${img}.png" alt="" style="height: 35px;">
+                    </div>
+                    <div class="box-sigla" style="margin-left: 5px;">
+                        <p style="font-size: 12px; font-weight: bold;">${sigla}</p>
+                        <p style="font-size: 12px; color:${updown >0 ? "#3A9811": "red"}"> R$ ${valor}</p>
+                    </div>
+                </div>
+        `);
+    }
+
+    
     function templateMoeda(img, valor, sigla, updown, pctChange, name) {
         return (`
                 <div title="${name}" onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
