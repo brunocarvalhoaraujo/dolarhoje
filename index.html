@@ -96,7 +96,7 @@
 
         <div class="box-logo-moeda"
             style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%;">
+            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%;" title="Nome da Moeda">
         </div>
         <div class="box-valores"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 25px;">
@@ -191,9 +191,9 @@
                 Outras Moedas:
             </label>
 
-            <div class="box-render-moedas" style="display: flex; flex-wrap: wrap;">
+            <div id="renderoutrasmoedas" class="box-render-moedas" style="display: flex; flex-wrap: wrap;">
 
-                <div class="moeda"
+                <!-- <div class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px; cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
                     <div class="boximg">
                         <img src="./icon-moedas/BTC.png" alt="" style="height: 30px;">
@@ -222,7 +222,7 @@
                     <div class="box-sigla" style="margin-left: 5px;">
                         <p>LIGTH COIN</p>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -271,6 +271,7 @@
     console.log(urlHash);
 
     let navMoedas = document.getElementById('navMoedas');
+    let renderoutrasmoedas =document.getElementById('renderoutrasmoedas');
 
     let inputMoeda1 = document.getElementById('moeda1');
     let inputMoeda2 = document.getElementById('moeda2');
@@ -306,7 +307,7 @@
 
     function atualizaValoresNav() {
         let ajax = new XMLHttpRequest();
-        ajax.open('GET', 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL,ETH-BRL,LTC-BRL');
+        ajax.open('GET', 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,CHF-BRL,RUB-BRL,BTC-BRL,ETH-BRL,LTC-BRL,XRP-BRL');
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
@@ -314,20 +315,20 @@
                 Object.keys(resposta).forEach((key) => {
                     console.log(resposta[key].code);
 
-                    navMoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid,resposta[key].pctChange );
+                    navMoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
+                    renderoutrasmoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid,resposta[key].pctChange, resposta[key].name);
                 });
             }
         }
         ajax.send();
     }
-
     atualizaValoresNav();
 
 
 
-    function templateMoeda(img, valor, sigla, updown, pctChange) {
+    function templateMoeda(img, valor, sigla, updown, pctChange, name) {
         return (`
-                <div onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
+                <div title="${name}" onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 120px; border-radius: 3px; padding: 3px; position: relative;">
                     <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown >0 ? "#3A9811": "red"}"> ${pctChange} %</p>
                     <div class="var-bird" style="position: absolute; bottom: 5px; right: 4px">
