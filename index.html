@@ -33,13 +33,15 @@
     }
 
     @keyframes slider {
-        0%{
+        0% {
             transform: translateX(20%);
         }
-        50%{
+
+        50% {
             transform: translate(-100%);
         }
-        100%{
+
+        100% {
             transform: translate(0%);
         }
     }
@@ -108,7 +110,8 @@
 
         <div class="box-logo-moeda"
             style=" width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
-            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%;" title="Nome da Moeda">
+            <img id="fotoDaMoeda" src="./img/dolar.png" style="height: 130px; border-radius: 50%;"
+                title="Nome da Moeda">
         </div>
         <div class="box-valores"
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 25px;">
@@ -136,7 +139,7 @@
             </div>
         </div>
 
-
+        <!-- receba a contacao links das redes socialis -->
         <div class="box-recebacontacao" style="border: 1px solid #efecec; height: auto; border-radius: 3px; margin: 10px; margin-top: 50px;
                      position: relative; display: flex; flex-direction: column; padding: 10px; font-size: 12px;">
             <label for=""
@@ -156,11 +159,22 @@
                     <img src="./img/whats.png" alt="" style="height: 30px;">
                 </div>
             </div>
-
-
         </div>
 
 
+
+        <!-- grafico charts -->
+        <div class="box-recebacontacao" style="border: 1px solid #efecec; height: auto; border-radius: 3px; margin: 10px; margin-top: 50px;
+                     position: relative; display: flex; flex-direction: column; padding: 10px; font-size: 12px;">
+            <label for=""
+                style="background-color: #fff; position: absolute; top: -15px; right: 15px; padding-left: 10px; padding-right: 10px; color: #333; font-size: 16px;">
+                Gráfico :
+            </label>
+            <div class="box-charts">
+                <canvas id="myChart" style="width: 100%; height: 280px;"> </canvas>
+
+            </div>
+        </div>
 
         <div class="box-resumo" style="border: 1px solid #efecec; height: auto; border-radius: 3px; margin: 10px; margin-top: 30px;
                      position: relative; display: flex; flex-direction: column; padding: 30px; font-size: 12px;">
@@ -176,7 +190,6 @@
                 financeiros internacionais e no comércio internacional. Sua sigla é USD, e é comumente representado pelo
                 símbolo "$". O valor do dólar é influenciado por diversos fatores, incluindo taxas de juros, condições
                 econômicas dos EUA, políticas governamentais e eventos globais.</p>
-
             <br>
 
             <p>Além de ser a moeda oficial nos Estados Unidos, o dólar é amplamente aceito em transações internacionais
@@ -203,7 +216,8 @@
                 Outras Moedas:
             </label>
 
-            <div id="renderoutrasmoedas" class="box-render-moedas" style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <div id="renderoutrasmoedas" class="box-render-moedas"
+                style="display: flex; flex-wrap: wrap; justify-content: center;">
 
                 <!-- <div class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px; cursor: pointer; display: flex; justify-content: start; align-items: center; width: 100px; border-radius: 3px; padding: 3px;">
@@ -236,7 +250,6 @@
                     </div>
                 </div> -->
             </div>
-
         </div>
 
         <!--  -->
@@ -252,26 +265,50 @@
             </a>
         </div> -->
 
-<!-- 
-        <div class="var-bird" style="position: absolute;">
-            <img src="./img/down.png" alt="" style="height: 10px; animation: updown 0.1s infinite;">
-            <style>
-                @keyframes updown {
-                    0% {
-                        transform: scale(1.3);
-                    }
-
-                    100% {
-                        transform: scale(1.0);
-                    }
-                }
-            </style>
-        </div> -->
-
     </div>
 </body>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
 
+    function initChart(moedaEX) {
+        let ajax = new XMLHttpRequest();
+        ajax.open('GET', `https://economia.awesomeapi.com.br/json/daily/${moedaEX}-BRL/7`);
+        ajax.onreadystatechange = () => {
+            if (ajax.readyState == 4 && ajax.status == 200) {
+                let resposta = JSON.parse(ajax.response);
+
+                //valor de x e y tratados
+                let valuesX = [];
+                let valuesY = [];
+                resposta.forEach((key) => {
+                    valuesX.push(key.ask)
+                    valuesY.push(new Date(key.timestamp * 1000).toLocaleDateString('pt-BR'))
+                });
+
+
+                //gerando o chart
+                new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: valuesY,
+                        datasets: [{
+                            backgroundColor: "rgba(239, 208, 114, 0.5)",
+                            borderColor: "",
+                            data: valuesX
+                        }]
+                    },
+                    options: {
+                        legends: "teste",
+
+                    }
+                });
+            }
+        }
+        ajax.send();
+    }
+    
+</script>
 <script>
     //aqui pego o hash para usar com minhas chamadas ajax..
     let urlHash = window.location.hash.replace('#', '');
@@ -283,7 +320,7 @@
     console.log(urlHash);
 
     let navMoedas = document.getElementById('navMoedas');
-    let renderoutrasmoedas =document.getElementById('renderoutrasmoedas');
+    let renderoutrasmoedas = document.getElementById('renderoutrasmoedas');
 
     let inputMoeda1 = document.getElementById('moeda1');
     let inputMoeda2 = document.getElementById('moeda2');
@@ -328,7 +365,7 @@
                     console.log(resposta[key].code);
 
                     navMoedas.innerHTML += templateMoedaSlider(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
-                    renderoutrasmoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid,resposta[key].pctChange, resposta[key].name);
+                    renderoutrasmoedas.innerHTML += templateMoeda(resposta[key].code, resposta[key].ask, resposta[key].code, resposta[key].varBid, resposta[key].pctChange, resposta[key].name);
                 });
 
                 Object.keys(resposta).forEach((key) => {
@@ -347,9 +384,9 @@
         return (`
                 <div title="${name}" onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 120px; border-radius: 3px; padding: 3px; position: relative; animation: 4s slider linear;">
-                    <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown >0 ? "#3A9811": "red"}"> ${pctChange} %</p>
+                    <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown > 0 ? "#3A9811" : "red"}"> ${pctChange} %</p>
                     <div class="var-bird" style="position: absolute; bottom: 5px; right: 4px">
-                        <img src="./img/${updown >0 ? "up.png": "down.png"}" alt="" style="height: 6px; animation: updown 1s infinite;">
+                        <img src="./img/${updown > 0 ? "up.png" : "down.png"}" alt="" style="height: 6px; animation: updown 1s infinite;">
                         <style>
                             @keyframes updown {
                                 0%{
@@ -367,20 +404,20 @@
                     </div>
                     <div class="box-sigla" style="margin-left: 5px;">
                         <p style="font-size: 12px; font-weight: bold;">${sigla}</p>
-                        <p style="font-size: 12px; color:${updown >0 ? "#3A9811": "red"}"> R$ ${valor}</p>
+                        <p style="font-size: 12px; color:${updown > 0 ? "#3A9811" : "red"}"> R$ ${valor}</p>
                     </div>
                 </div>
         `);
     }
 
-    
+
     function templateMoeda(img, valor, sigla, updown, pctChange, name) {
         return (`
                 <div title="${name}" onclick="window.location='./#${sigla}', window.location.reload()" class="moeda"
                     style=" border: 1px solid #efecec; margin: 5px;  cursor: pointer; display: flex; justify-content: start; align-items: center; min-width: 120px; border-radius: 3px; padding: 3px; position: relative;">
-                    <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown >0 ? "#3A9811": "red"}"> ${pctChange} %</p>
+                    <p style="font-size: 8px; position: absolute; top: 5px; right: 5px; color: ${updown > 0 ? "#3A9811" : "red"}"> ${pctChange} %</p>
                     <div class="var-bird" style="position: absolute; bottom: 5px; right: 4px">
-                        <img src="./img/${updown >0 ? "up.png": "down.png"}" alt="" style="height: 6px; animation: updown 1s infinite;">
+                        <img src="./img/${updown > 0 ? "up.png" : "down.png"}" alt="" style="height: 6px; animation: updown 1s infinite;">
                         <style>
                             @keyframes updown {
                                 0%{
@@ -398,7 +435,7 @@
                     </div>
                     <div class="box-sigla" style="margin-left: 5px;">
                         <p style="font-size: 12px; font-weight: bold;">${sigla}</p>
-                        <p style="font-size: 12px; color:${updown >0 ? "#3A9811": "red"}"> R$ ${valor}</p>
+                        <p style="font-size: 12px; color:${updown > 0 ? "#3A9811" : "red"}"> R$ ${valor}</p>
                     </div>
                 </div>
         `);
@@ -411,18 +448,12 @@
         let labelDaMoeda = document.getElementById('labelDaMoeda');
         fotoDaMoeda.setAttribute('src', './icon-moedas/' + sigla + '.png');
         labelDaMoeda.innerText = sigla;
+
+        initChart(sigla);
     }
     window.addEventListener('load', loadPageHashMoeda(urlHash));
 
-
-
-
-
-
-
-
-
-
+    
 
 </script>
 
