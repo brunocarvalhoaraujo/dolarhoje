@@ -69,7 +69,7 @@
                     style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;">
                     USD
                 </label>
-                <input id="moeda1" type="text" placeholder="insira um valor" value="1.00"
+                <input id="moeda1" type="number" placeholder="insira um valor" value="1.00"
                     style="height: 38px; width: 100%; margin: 10px; border: 1px solid #333; 
                 padding: 10px; font-size: 24px; outline: 0px none; border-radius: 3px; color: #333; text-align: end; font-weight: bold;">
             </div>
@@ -80,10 +80,12 @@
                     style="background-color: #fff; position: absolute; top: 0px; left: 25px; padding-left: 10px; padding-right: 10px; color: #333; font-weight: bold;">
                     BRL
                 </label>
-                <input id="moeda2" type="text" placeholder="" value="..."
+                <input id="moeda2" type="number" placeholder="" value="..."
                     style="height: 38px; width: 100%; margin: 10px; border: 1px solid #333; 
                 padding: 10px; font-size: 24px; outline: 0px none; border-radius: 3px; color: #333; text-align: end; font-weight: bold;">
-
+            </div>
+            <div class="divtxtmoeda" style="width: 95%; padding: 5px;">
+                <p id="descrMoeda" style="font-size: 14px; font-weight: bold;"></p>
             </div>
         </div>
 
@@ -289,6 +291,7 @@
     let inputMoeda2 = document.getElementById('moeda2');
 
 
+
     inputMoeda1.addEventListener('input', () => {
         if (inputMoeda1.value == "") {
             atualizaValores(1);
@@ -307,6 +310,9 @@
                 let resposta = JSON.parse(ajax.response);
                 let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX + 'BRL'].ask;
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
+
+                
+                document.getElementById('descrMoeda').innerText = resposta[moedaEX + 'BRL'].name;
             }
         }
         ajax.send();
