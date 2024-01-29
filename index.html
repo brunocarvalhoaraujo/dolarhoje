@@ -89,7 +89,44 @@
                 <p id="descrMoeda" style="font-size: 14px;"></p>
                 <p style="margin-left: 3px; border-radius: 5px; font-size: 14px; font-weight: bold;">hoje.</p>
             </div>
+            <br>
+            <p id="msgTikTok" style="margin-left: 3px; border-radius: 5px; font-size: 14px;">Siga-nos!
+                &#129303;&#10084;&#65039;&#65039;</p>
         </div>
+        <script>
+            let msgTikTok = document.getElementById('msgTikTok');
+
+            function alterMsg() {
+                let msgs = {
+                    0: "Explore nosso conteúdo! 🌍",
+                    1: "Aprecie nossas postagens! 🎨",
+                    2: "Inscreva-se para mais novidades! 📋",
+                    3: "Divirta-se conosco! 🎉",
+                    4: "Descubra mais sobre nós! 🔍",
+                    5: "Convide outros para nossa comunidade! 💌",
+                    6: "Aproveite as experiências conosco! 🌞",
+                    7: "Participe ativamente! 🤝",
+                    8: "Crie conosco! 🎨",
+                    9: "Inspire-se em nosso conteúdo! ✨",
+                    10: "Interaja em nossas publicações! 💬",
+                    11: "Aplauda conosco! 👏",
+                    12: "Divirta-se conosco! 😄",
+                    13: "Desafie-se a cada dia! 🏆",
+                    14: "Relaxe e curta! 🌿",
+                    15: "Evolua com a gente! 🌱",
+                    16: "Inove conosco! 🚀",
+                    17: "Comemore com a gente! 🎉",
+                    18: "Agradeça por tudo! 🙏",
+                    19: "Surpreenda-se com nosso conteúdo! 😲"
+                }
+                Object.keys(msgs).forEach((key) => {
+                    setTimeout(() => {
+                        msgTikTok.innerHTML = msgs[key];
+                    }, 2000 * key);
+                });
+            }
+            alterMsg();
+        </script>
 
         <!-- receba a contacao links das redes socialis -->
         <div class="box-recebacontacao" style="border: 1px solid #efecec; height: auto; border-radius: 3px; margin: 10px; margin-top: 50px;
@@ -164,7 +201,7 @@
                 câmbio podem ser impactados por eventos geopolíticos, indicadores econômicos e decisões de política
                 monetária.</p>
 
-            <br>    
+            <br>
             <p><strong> Top 10 Curiosidades sobre o Dólar</strong></p>
             <br>
             <a href="../top-10-curiosidades/usd.html">Saiba Mais</a>
@@ -318,7 +355,7 @@
                 let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX + 'BRL'].ask;
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
 
-                document.getElementById('descrMoeda').innerHTML = reais+" "+resposta[moedaEX + 'BRL'].name.replace('/Real Brasileiro', '')+" vale R$ "+totalMoedaExtrangeira.toFixed(2);;
+                document.getElementById('descrMoeda').innerHTML = reais + " " + resposta[moedaEX + 'BRL'].name.replace('/Real Brasileiro', '') + " vale R$ " + totalMoedaExtrangeira.toFixed(2);;
             }
         }
         ajax.send();
