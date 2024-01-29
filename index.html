@@ -247,7 +247,7 @@
 
     function initChart(moedaEX) {
         let ajax = new XMLHttpRequest();
-        ajax.open('GET', `https://economia.awesomeapi.com.br/json/daily/${moedaEX}-BRL/30`);
+        ajax.open('GET', `https://economia.awesomeapi.com.br/json/daily/${moedaEX}-BRL/5`);
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
