@@ -318,8 +318,7 @@
                 let totalMoedaExtrangeira = parseFloat(reais) * resposta[moedaEX + 'BRL'].ask;
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
 
-
-                document.getElementById('descrMoeda').innerText = reais.toFixed(2)+" "+resposta[moedaEX + 'BRL'].name.replace('/Real Brasileiro', '')+" vale R$ "+totalMoedaExtrangeira.toFixed(2);;
+                document.getElementById('descrMoeda').innerHTML = reais+" "+resposta[moedaEX + 'BRL'].name.replace('/Real Brasileiro', '')+" vale R$ "+totalMoedaExtrangeira.toFixed(2);;
             }
         }
         ajax.send();
