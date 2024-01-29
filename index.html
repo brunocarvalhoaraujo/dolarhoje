@@ -85,8 +85,9 @@
                     style="height: 38px; width: 100%; margin: 10px; border: 1px solid #333; 
                 padding: 10px; font-size: 24px; outline: 0px none; border-radius: 3px; color: #333; text-align: end; font-weight: bold;">
             </div>
-            <div class="divtxtmoeda" style="width: 95%; padding: 5px;">
+            <div class="divtxtmoeda" style="width: 95%; padding: 5px; display: flex;">
                 <p id="descrMoeda" style="font-size: 14px;"></p>
+                <p style="margin-left: 3px; border-radius: 5px; font-size: 14px; font-weight: bold;">hoje.</p>
             </div>
         </div>
 
@@ -318,7 +319,7 @@
                 inputMoeda2.value = totalMoedaExtrangeira.toFixed(2);
 
 
-                document.getElementById('descrMoeda').innerText = resposta[moedaEX + 'BRL'].name;
+                document.getElementById('descrMoeda').innerText = reais.toFixed(2)+" "+resposta[moedaEX + 'BRL'].name.replace('/Real Brasileiro', '')+" vale R$ "+totalMoedaExtrangeira.toFixed(2);;
             }
         }
         ajax.send();
