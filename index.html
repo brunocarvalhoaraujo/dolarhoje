@@ -369,7 +369,7 @@
 
     function atualizaValoresNav() {
         let ajax = new XMLHttpRequest();
-        ajax.open('GET', 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,CHF-BRL,RUB-BRL,BTC-BRL,ETH-BRL,LTC-BRL,XRP-BRL');
+        ajax.open('GET', 'https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,CHF-BRL,UYU-BRL,RUB-BRL,BTC-BRL,ETH-BRL,LTC-BRL,XRP-BRL');
         ajax.onreadystatechange = () => {
             if (ajax.readyState == 4 && ajax.status == 200) {
                 let resposta = JSON.parse(ajax.response);
